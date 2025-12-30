@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import userRouter from "./routes/user-router";
 import { limiter } from "./middlewares/rate-limiter";
+import logRequests from "./middlewares/logger";
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(limiter);
+app.use(logRequests);
 
 app.use("/users", userRouter());
 
